@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\n\n\nshinyUI(fluidPage(\n  \n  headerPanel(span(\"Inventory Management System\", style = \"color:blue\")),br(),\n  \n  \n  selectInput(inputId = \"product_id\", label = h4(\"Select Product:\"),\n              c(\"Washington Berry Juice\" = 1,\n                \"Washington Mango Drink\" = 2,\n                \"Washington Strawberry Drink\" = 3,\n                \"Washington Cream Soda\" = 4,\n                \"Washington Diet Soda\" = 5,\n                \"Washington Cola\" = 6,\n                \"Washington Diet Cola\"= 7,\n                \"Washington Orange Juice\" = 8,\n                \"Washington Cranberry Juice\" = 9)), br(),\n  \n  \n  titlePanel(h3(textOutput(\"product_text\"))), br(),\n  \n  sidebarPanel(\n    radioButtons(\"method\", h4( \"Forecast Technique: \", style = \"color:blue\"),\n                 c(\"Naive\" = \"naive\",\n                   \"Moving Average\" = \"ma\",\n                   \"Exponential Smoothing\" = \"es\")), \n    br(),\n    \n    h4(\"Calculation\", style = \"color:blue\"), br(),\n    \n    strong(textOutput(\"qty_on_hand\")),br(),\n    \n    strong(textOutput(\"lead_time\")),br(),\n    \n    strong(textOutput(\"safety_stock\")),br(),\n    \n    strong(textOutput(\"reorder_point\")),br(),\n    class = 'leftAlign'\n  ),\n  \n  sidebarPanel(\n    plotOutput(\"product_plot\"),\n    width = 8,\n    class = 'leftAlign'\n  ),\n  \n  \n  mainPanel(\n    \n    \n    \n    tabsetPanel(type = \"tabs\", \n                tabPanel(\"Forecast\",\n                         strong(\"Naive\"),verbatimTextOutput(\"forecast_naive_output\"),\n                         strong(\"Moving Average\"),verbatimTextOutput(\"forecast_sma_output\"),\n                         strong(\"Exponential Smoothing\"),verbatimTextOutput(\"forecast_es_output\")\n                ), \n                tabPanel(\"Error rates\", \n                         strong(\"Naive\"),verbatimTextOutput(\"forecast_naive_accuracy\"),\n                         strong(\"Moving Average\"), verbatimTextOutput(\"forecast_sma_accuracy\"),\n                         strong(\"Exponential Smoothing\"), verbatimTextOutput(\"forecast_es_accuracy\")\n                ), \n                tabPanel(\"Plots\", \n                         plotOutput(\"naive_plot\"),\n                         plotOutput(\"sma_plot\"),\n                         plotOutput(\"es_plot\"),\n                         class = 'rightAlign'), \n                tabPanel(\"Data\",\n                         dataTableOutput(\"product_dataHead\")\n                )\n    )\n  )\n)\n)",
+    "created" : 1453918999557.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3631890894",
+    "id" : "3F80FC15",
+    "lastKnownWriteTime" : 1448935159,
+    "path" : "~/RFiles/inventory/inventory/ui.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

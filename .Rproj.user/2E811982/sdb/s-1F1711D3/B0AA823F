@@ -1,0 +1,17 @@
+{
+    "contents" : "# Setup =========================================\nlibrary(devtools)\ninstall_github(\"marchtaylor/sinkr\")\nlibrary(sinkr)\ninstall.packages(\"maps\")\nlibrary(maps)\n\n# load data\ndata(sst)\nnames(sst)\n\n# gappy version\nset.seed(1)\nsstg <- sst\n\nsstg$field <- replace(sstg$field, sample(length(sstg$field), 0.5*length(sstg$field)), NaN)\n\n# view gappy field vs original\nPAL <- jetPal\nZLIM <- range(c(sst$field, sstg$field), na.rm=T)\nop <- par(mfcol=c(1,2))\nimage(x=sst$date, y=seq(nrow(sst$grid)), z=sst$field, col=PAL(20), zlim=ZLIM)\nimage(x=sstg$date, y=seq(nrow(sstg$grid)), z=sstg$field, col=PAL(20), zlim=ZLIM)\npar(op)\n\n# EOF ===========================================\n# RSEOF\nE1 <- eof(sstg$field, recursive = T, nu=50)\n# DINEOF\nD <- dineof(sstg$field, delta.rms = 1e-02) # lower \"delta.rms\" for finer interpolation (e.g. 1e-05)\nE2 <- eof(D$Xa, nu=50)\n\n# EOF Reconstruction ============================\nR1 <- eofRecon(E1)\nR2 <- eofRecon(E2)\n\n#data_table<- as.matrix(data_table[,1:ncol(data_table)])\n\n\nx <- read.csv(\"match_death.csv\")\n#x <- read.csv(\"test.csv\")\nx_sample <- x[1:20,]\nx_sample\n\n\na <- eof(x_sample)\n\nRecon <- eofRecon(a)\nRecon\n\nncol(x)\n\n?dineof\nD <- dineof(x$temp, delta.rms = 1e-03)\ny <- E1 <- eof(x$temp, recursive = T, nu = 1)\ny\n\nnames(iris)\n\nset.seed(1)\niris.gappy <- as.matrix(iris[,1:4])\niris.gappy[sample(length(iris.gappy), 0.25*length(iris.gappy))] <- NaN\nEr <- eof(iris.gappy, method=\"svd\", recursive=TRUE) # recursive (RSEOF)\nEnr <- eof(iris.gappy, method=\"svd\", recursive=FALSE) # non-recursive (LSEOF)\niris.gappy.recon.r <- eofRecon(Er)\niris.gappy.recon.nr <- eofRecon(Enr)\n\nMice <- mice(x)\n",
+    "created" : 1454472967961.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1197816930",
+    "id" : "B0AA823F",
+    "lastKnownWriteTime" : 1452660808,
+    "path" : "~/RFiles/EOF.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
